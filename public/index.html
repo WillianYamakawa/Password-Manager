@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Password Manager</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <Style>
+        @import url('https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap');
+
+body {
+    background-color: #FFFFFF;
+}
+.main-div {
+    position: absolute;
+    top: 290px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.main-div p {
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    color: #3f4949;
+    font-size: 23px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+.main-div input {
+font-size: 20px;
+padding-top: 12px;
+padding-bottom: 8px;
+padding-left: 20px;
+padding-right: 20px;
+border-radius: 10px;
+border: solid;
+margin-bottom: 30px;
+background-color: rgba(255, 255, 255, 0.5);
+border-color: rgba(59, 59, 59, 0.089);
+outline: none;
+color: #292929;
+transition: 0.3s;
+}
+.main-div button {
+margin-top: 25px;
+width: 100%;
+font-size: 20px;
+height: 45px;
+font-family: "Ubuntu", sans-serif;
+letter-spacing: 5px;
+border-radius: 10px;
+border: none;
+background-image: linear-gradient(90deg, #3e8fd1, #6475d6);
+color: #282828;
+cursor: pointer;
+transition: 0.2s;
+margin-bottom: 15px;
+}
+.main-div button:hover {
+transition: 0.2s;
+color: #ffffff;
+}
+.main-div input:focus {
+transition: 0.3s;
+border-color: #3e8fd1;
+border-radius: 5px;
+}
+.main-div a {
+color: #3b3b3b50;
+text-decoration: none;
+transition: 0.2s;
+font-family: "Ubuntu", sans-serif;
+font-size: 15px;
+}
+.main-div a:hover {
+color: #3e8fd1;
+transition: 0.2s;
+}
+.aviso {
+margin-top: -22px;
+color: #ff3a3ae0;
+text-decoration: none;
+transition: 0.2s;
+font-family: "Ubuntu", sans-serif;
+font-size: 16px;
+text-align: center;
+font-weight: bold;
+}
+.hidden {
+display: none;
+}
+    </Style>
+  </head>
+  <body>
+    <div class="main-div">
+      <p>Bem Vindo</p>
+      <input id="user" autocomplete="off" type="text" placeholder="Login" /><br />
+      <input id="senha" type="password" placeholder="Senha" /><br />
+      <div id="aviso" class="aviso hidden">
+          Login não existe
+      </div>
+      <button id="entrar">ENTRAR</button>
+    </div>
+    <script>
+        $("entrar").addEventListener("click", async (e) => {
+            e.preventDefault()
+            let user = $("user").value.trim()
+            let pwd = $("senha").value.trim()
+            let res = await fetch(`/api/validatelogin?user=${user}&pwd=${pwd}`)
+            res = await res.json();
+            console.log(res.status)
+            if(res.status == "ok"){
+                window.sessionStorage.setItem("user", user)
+                window.sessionStorage.setItem("pwd", pwd)
+                window.location.replace("/home");
+            }else{
+                $("senha").value = "";
+                $("aviso").classList.remove("hidden")
+            }
+        })
+
+        function $(id){
+            return document.getElementById(id)
+        }
+    </script>
+  </body>
+</html>

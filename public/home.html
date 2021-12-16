@@ -1,0 +1,407 @@
+<!-- 261C2C 3E2C41 5C527F 6E85B2 -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bem vindo</title>
+    <style>
+      .hidden {
+        display: none;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        background-color: #221c2c;
+      }
+      .list,
+      .add,
+      .edit{
+        margin: auto;
+        margin-top: 12vh;
+        background-color: #3e2c41;
+        width: 100%;
+        max-width: 700px;
+        min-height: 600px;
+        height: 75vh;
+        border-radius: 15px;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        text-align: center;
+      }
+      .add, .edit {
+        height: auto;
+        margin-bottom: 40px;
+        width: 100%;
+      }
+      .list button {
+        text-align: center;
+        background-color: #665269;
+        border: none;
+        font-size: 30px;
+        padding: 1px 10px;
+        border-radius: 20px;
+        transition: 0.3s;
+        width: 150px;
+        height: 50px;
+        color: #ffba52;
+        margin-bottom: 20px;
+        margin-top: 10px;
+      }
+      .list button:hover {
+        transform: scale(1.05);
+        cursor: pointer;
+        background-color: #dfe0e2;
+        color: rgb(44, 44, 44);
+      }
+      .item {
+        text-align: center;
+        background-color: #665269;
+        margin-left: 10px;
+        margin-right: 10px;
+        padding: 1px 10px;
+        border-radius: 5px;
+        transition: 0.3s;
+        color: #dfe0e2;
+        margin-top: 10px;
+        margin-bottom: 12px;
+      }
+      .item:hover {
+        transform: scale(1.03);
+        cursor: pointer;
+        background-color: #dfe0e2;
+        color: #5c7ab6;
+      }
+      .item p {
+        margin-left: 30px;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        font-weight: bold;
+        font-size: 20px;
+      }
+      .items {
+        overflow-y: scroll;
+        height: 460px;
+        box-shadow: rgba(0, 0, 0, 0.11) 0px -50px 36px 60px inset;
+        margin: 0px 5px;
+        border-radius: 5px;
+      }
+      .items::-webkit-scrollbar {
+        display: none;
+      }
+      .add p, .edit p {
+        color: #dfe0e2;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 18px;
+        font-weight: 500;
+        letter-spacing: 1px;
+      }
+      .add input, .edit input ,
+      .add textarea, .edit textarea  {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        border-radius: 10px;
+        border: 3px solid #ffffff83;
+        font-size: 18px;
+        padding: 5px 30px;
+        text-align: center;
+        transition: 0.2s;
+        margin-bottom: 30px;
+        text-align: left;
+        resize: none;
+        margin-bottom: 15px;
+      }
+      
+      .add input:focus, .edit input:focus,
+      .add textarea:focus,  .edit textarea:focus{
+        outline: none;
+        border: 3px solid #724ccc;
+        transform: scale(1.1);
+        border-radius: 20px;
+      }
+      .add .msg, .edit .msg2 {
+        color: rgb(255, 60, 35);
+      }
+      .add button, .edit button {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 20px;
+        font-weight: 500;
+        letter-spacing: 1px;
+        padding: 5px 40px;
+        border-radius: 10px;
+        border: none;
+        background-color: #7926ff;
+        color: #ffffff;
+        transition: 0.3s;
+      }
+      .add button:hover, .edit button:hover {
+        transform: scale(1.1);
+        cursor: pointer;
+      }
+      .add .back, .edit .back {
+        margin-top: 10px;
+      }
+      .add .enviar, .edit .salvar {
+        margin-bottom: 30px;
+      }
+      .edit .delete{
+        margin-left: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="list hidden">
+        <button class="addbtn">+</button>
+        <div class="items">
+        </div>
+    </div>
+    <div class="add hidden">
+      <button class="back">Voltar</button>
+      <p>Nome*</p>
+      <input id="nameadd" type="text" maxlength="30" autocomplete="off"/>
+      <p>Login*</p>
+      <input id="loginadd" type="text" maxlength="30" autocomplete="off"/>
+      <p>Senha*</p>
+      <input id="pwdadd" type="text" maxlength="30" autocomplete="off"/>
+      <p>Comentarios adicionais</p>
+      <textarea
+        id="commadd"
+        rows="5"
+        cols="30"
+        type="text"
+        maxlength="100"
+      ></textarea>
+      <br />
+      <p class="msg hidden"></p>
+      <button class="enviar">Enviar</button>
+    </div>
+    <div class="edit hidden">
+        <button class="back">Voltar</button>
+        <p>Nome</p>
+        <input id="name" type="text" maxlength="30" autocomplete="off"/>
+        <p>Login</p>
+        <input id="login" type="text" maxlength="30" autocomplete="off"/>
+        <p>Senha</p>
+        <input id="pwd" type="text" maxlength="30" autocomplete="off"/>
+        <p>Comentarios adicionais</p>
+        <textarea
+          id="comm"
+          rows="5"
+          cols="30"
+          type="text"
+          maxlength="100"
+        ></textarea>
+        <br />
+        <p class="msg2"></p>
+        <button class="salvar">Editar</button>
+        <button class="delete">Excluir</button>
+      </div>
+    <script>
+      let listtab = document.getElementsByClassName("list")[0] 
+      let addtab = document.getElementsByClassName("add")[0] 
+      let edittab = document.getElementsByClassName("edit")[0] 
+      let user = window.sessionStorage.getItem("user");
+      let pwd = window.sessionStorage.getItem("pwd");
+      let logins;
+      let activeid;
+      //if(!user || !pwd) window.location.replace("/");
+
+      fetch(`/api/content?user=${user}&pwd=${pwd}`)
+        .then((e) => {
+          e.json().then((data) => {
+            if (data.status != "ok") window.location.replace("/");
+            logins = data.data;
+            handleList();
+            listtab.classList.remove("hidden");
+            addtab.classList.add("hidden")
+            edittab.classList.add("hidden")
+          });
+        })
+        .catch(() => {
+          window.location.replace("/");
+        });
+
+      function handleList() {
+        let tdiv = document.getElementsByClassName(
+            "items"
+          )[0];
+        tdiv.innerHTML = "";
+        for (let i = 0; i < logins.length; i++) {
+          tdiv.innerHTML += `<div class="item" id="${logins[i]._id}">
+                                <p>${logins[i].name}</p>
+                              </div>`;
+        }
+
+        let items = document.getElementsByClassName("item");
+
+        for (let i = 0; i < items.length; i++) {
+          items[i].addEventListener("click", () => {
+            activeid = items[i].getAttribute("id");
+            let namebtn = document.getElementById("name");
+            let loginbtn = document.getElementById("login");
+            let pwdbtn = document.getElementById("pwd");
+            let commbtn = document.getElementById("comm");
+            let obj = logins.filter((e) => e._id == activeid)[0]
+
+            namebtn.value = obj.name;
+            loginbtn.value = obj.login;
+            pwdbtn.value = obj.password;
+            commbtn.value = obj.comment;
+
+            listtab.classList.add("hidden");
+            addtab.classList.add("hidden")
+            edittab.classList.remove("hidden")
+
+          });
+        }
+      }
+
+      let btnsback = document.getElementsByClassName("back")
+      for(let i = 0; i < btnsback.length; i++){
+          btnsback[i].addEventListener("click", (e) => {
+              e.preventDefault()
+              listtab.classList.remove("hidden");
+              addtab.classList.add("hidden")
+              edittab.classList.add("hidden")
+
+          })
+      }
+
+      document.getElementsByClassName("addbtn")[0].addEventListener("click", (e)=> {
+          e.preventDefault()
+          listtab.classList.add("hidden");
+          addtab.classList.remove("hidden")
+          edittab.classList.add("hidden")
+      })
+
+      document
+        .getElementsByClassName("enviar")[0]
+        .addEventListener("click", async (e) => {
+            document
+        .getElementsByClassName("enviar")[0].disabled = true;
+          e.preventDefault();
+          let namebtn = document.getElementById("nameadd");
+          let loginbtn = document.getElementById("loginadd");
+          let pwdbtn = document.getElementById("pwdadd");
+          let commbtn = document.getElementById("commadd");
+
+          if (!namebtn.value || !loginbtn.value || !pwdbtn.value) {
+            document.getElementsByClassName("msg")[0].innerHTML =
+              "Campos inválidos!";
+            return
+          }
+
+          document.getElementsByClassName("msg")[0].innerHTML =
+              "";
+
+          let _res = await fetch(`/api/content?user=${user}&pwd=${pwd}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                owner: user,
+                name: namebtn.value,
+                login: loginbtn.value,
+                password: pwdbtn.value,
+                comment: commbtn.value
+            })
+          });
+
+          let res = await _res.json()
+          if(res.status != 'ok'){
+            document.getElementsByClassName("msg")[0].innerHTML =
+              "Erro! Contate um administrador";
+            return
+          }
+
+          logins = res.data;
+          handleList();
+
+          listtab.classList.remove("hidden");
+          addtab.classList.add("hidden")
+          document
+        .getElementsByClassName("enviar")[0].disabled = false;
+        });
+
+        document
+        .getElementsByClassName("salvar")[0]
+        .addEventListener("click", async(e)=>{
+            document
+        .getElementsByClassName("salvar")[0].disabled = true;
+            e.preventDefault();
+          let namebtn = document.getElementById("name");
+          let loginbtn = document.getElementById("login");
+          let pwdbtn = document.getElementById("pwd");
+          let commbtn = document.getElementById("comm");
+
+          if (!namebtn.value || !loginbtn.value || !pwdbtn.value) {
+            document.getElementsByClassName("msg2")[0].innerHTML =
+              "Campos inválidos!";
+            return
+          }
+
+          document.getElementsByClassName("msg2")[0].innerHTML =
+              "";
+
+          let _res = await fetch(`/api/content?user=${user}&pwd=${pwd}`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                _id: activeid,
+                owner: user,
+                name: namebtn.value,
+                login: loginbtn.value,
+                password: pwdbtn.value,
+                comment: commbtn.value
+            })
+          });
+
+          let res = await _res.json()
+          if(res.status != 'ok'){
+            document.getElementsByClassName("msg2")[0].innerHTML =
+              "Erro! Contate um administrador";
+            return
+          }
+
+          
+
+          logins = res.data;
+          handleList();
+
+          listtab.classList.remove("hidden");
+          edittab.classList.add("hidden")
+          document
+        .getElementsByClassName("salvar")[0].disabled = false;
+        })
+
+        document
+        .getElementsByClassName("delete")[0]
+        .addEventListener("click", async(e) => {
+          e.preventDefault();
+          let _res = await fetch(`/api/content?user=${user}&pwd=${pwd}`, {
+            method: "DELETE",
+             body: JSON.stringify({_id: activeid}),
+             headers: { "Content-Type": "application/json" }
+             });
+
+          let res = await _res.json()
+          if(res.status != 'ok'){
+            document.getElementsByClassName("msg2")[0].innerHTML =
+              "Erro! Contate um administrador";
+            return
+          }
+
+          
+
+          logins = res.data;
+          handleList();
+
+          listtab.classList.remove("hidden");
+          edittab.classList.add("hidden")
+          document
+        .getElementsByClassName("salvar")[0].disabled = false;
+        })
+        
+    </script>
+  </body>
+</html>
